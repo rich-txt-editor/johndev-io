@@ -1,0 +1,120 @@
+/* Reset some basic elements */
+body, h1, h2, h3, p, form, button, ul {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+html, body {
+  height: 100%;
+  margin: 60;
+}
+body {
+    color: #333;
+    background: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-content, .comments-section, .comment-form {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.comment {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    background-color: #444; /* Changed from blue to neutral dark */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #333; /* Darker shade for hover */
+}
+
+/* Container for main content */
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Navbar styling */
+nav {
+    background-color: #666; /* Changed to a neutral dark grey */
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+    color: #ccc; /* Light grey for hover state */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    nav ul {
+        flex-direction: column;
+    }
+}
+
+.content {
+    flex: 1;
+}
+/* Footer styling */
+.footer {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    background-color: #444; /* Neutral dark */
+    color: #fff;
+}
+

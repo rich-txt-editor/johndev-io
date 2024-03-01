@@ -1,0 +1,14 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<h1>Skills</h1>
+<div>
+    {% for skill in skills %}
+    <div>
+        <h2>{{ skill.name }}</h2>
+        <p>Proficiency: {{ skill.proficiency }}/100</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

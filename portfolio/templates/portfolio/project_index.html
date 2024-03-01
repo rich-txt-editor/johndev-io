@@ -1,0 +1,14 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<!-- React app root element -->
+<div id="root"></div>
+
+<!-- React Static Files -->
+{% load static %}
+<script src="{% static 'projects-react/build/static/js/runtime-main.55b69a11.js' %}"></script>
+<script src="{% static 'projects-react/build/static/js/453.5b1645ef.chunk.js' %}"></script>
+<script src="{% static 'projects-react/build/static/js/main.55b69a11.js' %}"></script>
+<link href="{% static 'projects-react/build/static/css/main.f855e6bc.css' %}" rel="stylesheet">
+{% endblock %}
+

@@ -1,0 +1,14 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<h1>Blog</h1>
+<div>
+    {% for post in posts %}
+    <div>
+        <h2><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h2>
+        <p>Posted on {{ post.created_on }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
