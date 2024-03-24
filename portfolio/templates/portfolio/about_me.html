@@ -1,7 +1,13 @@
 {% extends 'portfolio/base.html' %}
 
 {% block content %}
-<h1>About Me</h1>
-<p>This is a static page with information about you.</p>
+<div class="profile-content">
+  <div class="text-content">
+    <h1>About Me</h1>
+    <br>
+    <p>Experienced Software Engineer specialized in AI/ML, adept at data analysis and visualization with Python libraries and full-stack web development in Django. Skilled in writing scalable code in Python, C/C++, and Java. Led data management and analytics projects at Columbia University, leveraging Oracle databases to drive a 20% annual increase in fundraising success.</p>
+  </div>
+    <a href="{% url 'contact' %}"><img src="/media/projects/1.png" alt="John R. Molina" class="profile-pic"></a>
+</div>
 {% endblock %}
 

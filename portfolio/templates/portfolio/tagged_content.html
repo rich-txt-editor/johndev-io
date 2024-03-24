@@ -1,0 +1,41 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<div class="grid-container">
+  <!-- Content display logic here -->
+  <div class="post-content">
+    {% if display_items.posts %}
+        <h2>Posts</h2>
+        {% for post in display_items.posts %}
+            <div>
+                <h3><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h3>
+                <p>Posted on {{ post.created_on }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Display Projects -->
+    {% if display_items.projects %}
+        <h2>Projects</h2>
+        {% for project in display_items.projects %}
+            <div>
+                <h3><a href="{% url 'project_detail' project.pk %}">{{ project.title }}</a></h3>
+                <p>Project created on {{ project.created_at }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+  </div>
+
+  <div class="tags-box">
+    <h2>Tags</h2>
+    <ul>
+      {% for tag in tags_with_counts %}
+      <li>
+        - <a href="{% url 'blog_by_tag' tag.name %}">{{ tag.name }} ({{ tag.count }})</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+

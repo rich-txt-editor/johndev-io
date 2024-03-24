@@ -2,6 +2,18 @@
 
 {% block content %}
 <h1>Skills</h1>
+
+<div class="tags-box">
+  <h2>Tags</h2>
+  <ul>
+    {% for tag in tags_with_counts %}
+    <li>
+      - <a href="{% url 'blog_by_tag' tag.name %}">{{ tag.name }} ({{ tag.count }})</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
 <div>
     {% for skill in skills %}
     <div>

@@ -1,19 +1,32 @@
 from django.contrib import admin
-from .models import Project, Skill, Post, Comment
+from .models import Project, Skill, Post, Comment, Resume, ProjectImage
 
-# Register your models here.
-
+# Custom admin for Comment model
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('name', 'body', 'post', 'created_on', 'approved')
     list_filter = ('approved', 'created_on')
-    search_field = ('name', 'email', 'body')
+    search_fields = ('name', 'email', 'body')
     actions = ['approve_comments']
 
     def approve_comments(self, request, queryset):
         queryset.update(approved=True)
 
+# Custom admin for Project model
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('title', 'status', 'is_featured', 'created_at', 'updated_at')
+    list_filter = ('status', 'is_featured', 'created_at', 'updated_at')
+    search_fields = ('title', 'description', 'technologies')
 
-admin.site.register(Project)
+@admin.register(ProjectImage)
+class ProjectImageAdmin(admin.ModelAdmin):
+    list_display = ['project', 'caption']
+    list_filter = ['project']
+
+
+# Register other models without custom admin classes directly
 admin.site.register(Skill)
 admin.site.register(Post)
-admin.site.register(Comment, CommentAdmin)
+admin.site.register(Comment, CommentAdmin)  # Note: Comment is registered with its custom admin here
+admin.site.register(Resume)
+

@@ -3,32 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Site</title>
+    <title>My Portfolio</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
 </head>
 <body>
     <header>
         <nav class='header'>
             <ul>
-                <li><a href="{% url 'project_index' %}">Projects</a></li>
-                <li><a href="{% url 'skills_index' %}">Skills</a></li>
+                <li><a href="/">Projects</a></li>
                 <li><a href="{% url 'blog_index' %}">Blog</a></li>
                 <li><a href="{% url 'about_me' %}">About Me</a></li>
-                <li><a href="{% url 'resume' %}">Resume</a></li>
+                <li><a href="{% url 'resume' %}">Resume/CV</a></li>
+                <li><a href="{% url 'skills_index' %}">Skills</a></li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
             </ul>
         </nav>
     </header>
-
+    <br>
+    <br>
     <div class="content">
       {% block content %}
       {% endblock %}
     </div>
 
     <footer class='footer'>
-        <p>Your Portfolio &copy; 2024</p>
+        <p>John R. Molina's Portfolio &copy; 2024</p>
     </footer>
+
+
+
 </body>
 </html>
 

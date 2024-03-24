@@ -1,14 +1,39 @@
 {% extends 'portfolio/base.html' %}
 
 {% block content %}
-<!-- React app root element -->
-<div id="root"></div>
 
-<!-- React Static Files -->
-{% load static %}
-<script src="{% static 'projects-react/build/static/js/runtime-main.55b69a11.js' %}"></script>
-<script src="{% static 'projects-react/build/static/js/453.5b1645ef.chunk.js' %}"></script>
-<script src="{% static 'projects-react/build/static/js/main.55b69a11.js' %}"></script>
-<link href="{% static 'projects-react/build/static/css/main.f855e6bc.css' %}" rel="stylesheet">
+{% load static %} <!-- Load static if you need to reference static files -->
+
+<div class="container mt-5"> <!-- Bootstrap container class for styling -->
+  {% for project in projects %}
+    <div class="project mb-3">
+      <h2>{{ project.title }}</h2>
+      <p>{{ project.description }}</p>
+      <div class="row">
+        <!-- Display project images -->
+        {% for image in project.images.all %}
+          <div class="col-sm-4 mb-2"> <!-- Bootstrap grid layout for images -->
+            <img src="{{ image.image.url }}" alt="{{ image.caption }}" class="img-fluid">
+            <!-- 'img-fluid' class makes the image responsive -->
+          </div>
+        {% endfor %}
+      </div>
+      <!-- Optionally, include project links if present -->
+      {% if project.link %}
+        <a href="{{ project.link }}" class="btn btn-primary" target="_blank">Live Version</a>
+      {% endif %}
+      {% if project.repo_link %}
+        <a href="{{ project.repo_link }}" class="btn btn-secondary" target="_blank">Repository</a>
+      {% endif %}
+    </div>
+  {% empty %}
+    <p>No projects found.</p>
+  {% endfor %}
+</div>
 {% endblock %}
+
+
+
+
+
 

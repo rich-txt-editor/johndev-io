@@ -6,23 +6,45 @@ body, h1, h2, h3, p, form, button, ul {
     padding: 0;
     list-style-type: none;
 }
+
 html, body {
   height: 100%;
-  margin: 60;
 }
+
 body {
-    color: #333;
-    background: #f4f4f4;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Default light mode styles */
+.light-mode {
+    color: #333;
+    background: #f4f4f4;
+}
+
+/* Dark mode styles */
+.dark-mode {
+    color: #ddd; /* Light text for dark mode */
+    background: #222; /* Dark background for dark mode */
+}
+
+/* Container for main content and its dark mode styles */
+.post-content, .comments-section, .comment-form, .comment, input[type="text"], textarea, .container, .footer {
+    transition: all 0.3s ease; /* Smooth transition for dark mode toggle */
 }
 
 .post-content, .comments-section, .comment-form {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 15px;
     border-radius: 5px;
-    background: #fff;
+    background: #f8f8f8;
+}
+
+.dark-mode .post-content, .dark-mode .comments-section, .dark-mode .comment-form, .dark-mode .project-card {
+    background: #333; /* Dark background for containers */
+    border: 1px solid #444; /* Slightly lighter border for contrast */
 }
 
 .comment {
@@ -31,8 +53,12 @@ body {
     border-bottom: 1px solid #eee;
 }
 
+.dark-mode .comment {
+    border-bottom: 1px solid #555; /* Dark mode comment border */
+}
+
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 label {
@@ -41,15 +67,21 @@ label {
 }
 
 input[type="text"], textarea {
-    width: 100%;
+    width: 85%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
+.dark-mode input[type="text"], .dark-mode textarea {
+    background: #333; /* Dark background for inputs */
+    border: 1px solid #444; /* Dark border for inputs */
+    color: #ddd; /* Light text for inputs */
+}
+
 button[type="submit"] {
-    background-color: #444; /* Changed from blue to neutral dark */
+    background-color: #444; /* Neutral dark */
     color: white;
     padding: 10px 15px;
     border: none;
@@ -61,19 +93,23 @@ button[type="submit"]:hover {
     background-color: #333; /* Darker shade for hover */
 }
 
-/* Container for main content */
-.container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+/* Navbar styling */
+nav.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
-/* Navbar styling */
 nav {
-    background-color: #666; /* Changed to a neutral dark grey */
+    background-color: #666; /* Neutral dark grey */
     overflow: hidden;
     padding: 0 20px;
+}
+
+.dark-mode nav {
+    background-color: #333; /* Darker background for nav in dark mode */
 }
 
 nav ul {
@@ -97,7 +133,8 @@ nav ul li a {
 
 nav ul li a:hover {
     color: #ccc; /* Light grey for hover state */
-}
+    text-decoration: none;
+  }
 
 /* Mobile responsiveness */
 @media (max-width: 600px) {
@@ -108,9 +145,15 @@ nav ul li a:hover {
 
 .content {
     flex: 1;
+    padding-top: 30px; /* Ensure content starts below the navbar */
+    padding-left: 40px;
+    padding-right: 20px;
+    padding-bottom 10px;
 }
+
 /* Footer styling */
 .footer {
+    width: 100%;
     text-align: center;
     padding: 20px 0;
     margin-top: 40px;
@@ -118,3 +161,238 @@ nav ul li a:hover {
     color: #fff;
 }
 
+.dark-mode .footer {
+    background-color: #333; /* Darker footer background in dark mode */
+}
+
+/* Toggle button styling for light/dark mode */
+.theme-toggle {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white; /* Match navbar link color */
+    font-size: 16px; /* Match navbar font size */
+    padding: 14px 20px; /* Match navbar padding */
+    text-decoration: none; /* Ensure no underline */
+}
+
+.theme-toggle:hover {
+    color: #ccc; /* Light grey for hover state, matching navbar links */
+}
+
+.icon-light, .icon-dark {
+    display: none;
+}
+
+/* Show appropriate icon based on class */
+body.dark-mode .icon-light {
+    display: none;
+}
+
+body.dark-mode .icon-dark {
+    display: inline;
+}
+
+body:not(.dark-mode) .icon-light {
+    display: inline;
+}
+
+body:not(.dark-mode) .icon-dark {
+    display: none;
+}
+
+/* Enhancing dark mode styles */
+.dark-mode nav ul li a {
+    color: #8a8a8a; /* Soft blue for readability */
+}
+
+.dark-mode nav ul li a:hover {
+    color: #f1faee; /* Lighter shade for hover state */
+    text-decoration: none; /* Improves interactivity visibility */
+}
+
+/* Apply similar principles to other content links if needed */
+.dark-mode a {
+    color: #a8dadc; /* Adjust as per your design for content links */
+    transition: color 0.3s ease;
+}
+
+.dark-mode a:hover, .dark-mode a:focus {
+    color: #f1faee;
+    text-decoration: underline; /* or other hover effects */
+}
+
+/* Light Mode Styles */
+.post-tags ul {
+    list-style: none;
+}
+
+.post-tags ul li {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 5px 10px;
+    background-color: #eee; /* Light background for tags */
+    border-radius: 5px;
+    color: #333; /* Dark text color */
+    text-decoration: none;
+    margin-bottom: 0;
+}
+
+/* Dark Mode Styles */
+.dark-mode .post-tags ul li {
+    background-color: #444; /* Darker background for tags in dark mode */
+    color: #ddd; /* Lighter text color for readability in dark mode */
+}
+/* Container for the projects grid */
+.projects-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px; /* Adjust the space between cards */
+}
+
+/* Individual project cards */
+.project-card {
+  width: 500px; /* Fixed width, but you can make it flexible as well */
+  height: 400px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Simple shadow for depth */
+  border-radius: 10px; /* Rounded corners for a modern look */
+  overflow: hidden; /* Ensures content fits within the corners */
+  transition: transform 0.2s; /* Smooth transition for hover effect */
+  background: #f8f8f8;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.project-card-link {
+  text-decoration: none; /* Remove underline from links */
+  color: inherit; /* Inherit text color instead of link color */
+  display: block; /* Make sure the link is block-level to wrap the whole card */
+}
+
+.project-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transform: scale(1.03); /* Slightly enlarge cards on hover */
+  text-decoration: none; /* Remove underline from links */
+
+}
+
+.project-image {
+  width: 100%; /* Ensure the image covers the card width */
+  height: 180px; /* Fixed height for images */
+  object-fit: cover; /* Ensure images cover the area nicely */
+}
+
+.project-title {
+  margin: 10px 0; /* Spacing for the title */
+}
+
+.project-description {
+  font-size: 0.9rem; /* Slightly smaller font for the description */
+}
+
+.project-link {
+  display: inline-block;
+  color: #007bff; /* Example color for link */
+  text-decoration: none; /* No underline */
+}
+
+.tags-box {
+  position: fixed; /* Changed from absolute to fixed */
+  top: 130px; /* Adjust based on navbar height */
+  right: 20px; /* Spacing from the right edge */
+  width: 200px; /* Adjust based on design requirements */
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+@media (max-width: 768px) {
+  .tags-box {
+    position: static;
+    width: auto;
+    margin-top: 20px;
+  }
+}
+
+/* New grid layout styles */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding-top: 30px;
+  padding-right: 225px;
+}
+
+.grid-container > div {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.tags-box {
+  grid-column: 2; /* Adjust if the position of the tags-box changes */
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+  .tags-box {
+    order: -1; /* Make tags-box appear first on small screens */
+  }
+}
+
+.dark-mode .tags-box {
+  background-color: #333; /* Dark background for tags box in dark mode */
+  border: 1px solid #444; /* Adjusting the border color for better visibility in dark mode */
+  color: #ddd; /* Changing the text color for better readability in dark mode */
+}
+
+.comments-section, .comment-form {
+    width: 60%; /* Adjust based on your layout needs */
+    padding: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: Adds depth */
+}
+
+
+/* Container for the content and the profile picture */
+.profile-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Styling for the text content */
+.text-content {
+  flex: 1; /* Allows the text content to fill the space */
+  padding-right: 20px; /* Adds some spacing between the text and the image */
+}
+
+.profile-pic {
+  width: 200px;
+  height: 200px;
+  margin-top: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #007bff;
+  box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic:hover {
+  border-color: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+
+.project-image-detail {
+  max-width: 10%; /* Ensures the image width does not exceed the width of the div */
+  height: auto; /* Scales the height automatically to maintain the aspect ratio */
+  display: block; /* Prevents images from displaying inline with extra space */
+}
+
+.info-indent {
+  padding-left: 15px;
+  padding-bottom: 0;
+}

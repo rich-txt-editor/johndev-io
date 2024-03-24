@@ -19,19 +19,26 @@ from django.urls import path, include
 from portfolio import views
 from rest_framework.routers import DefaultRouter
 from portfolio.views import ProjectViewSet
+from django.conf import settings
+from django.conf.urls.static import static
 
 router = DefaultRouter()
 router.register(r'projects', ProjectViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.project_index, name="project_index"),
-    path('project/<int:pk>/', views.project_detail, name='project_detail'),
+    path("", include('frontend.urls')),
     path("blog/", views.blog_index, name="blog_index"),
     path("blog/<int:pk>/", views.blog_detail, name="blog_detail"),
     path("about/", views.about_me, name="about_me"),
     path("skills/", views.skills_index, name="skills_index"),
     path("resume/", views.resume, name="resume"),
     path("contact/", views.contact, name="contact"),
-    path('api/', include(router.urls)),
-]
+    path("api/", include(router.urls)),
+    path("tag/<str:tag_name>/", views.blog_by_tag, name='blog_by_tag'),
+    path('project/<int:pk>/', views.project_detail, name='project_detail'),
+    path('hello-world/', views.hello_world, name='hello_world'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
