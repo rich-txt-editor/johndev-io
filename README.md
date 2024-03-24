@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Portfolio Site
 
 This is a Django-based portfolio website designed to showcase software engineering projects, skills, and professional information. It features dynamic content management through Django admin, project display with images and details, a blog section for articles, and a tags feature for organizing content.
@@ -27,3 +28,6 @@ These instructions will get you a copy of the project up and running on your loc
    ```bash
    git clone https://github.com/yourusername/portfolio_site.git
 
+=======
+# johndev.io
+>>>>>>> 960f158790aaadd1c05d9afe6a30dd3cb6b3b375
