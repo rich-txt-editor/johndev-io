@@ -7,16 +7,15 @@
   <ul>
     {% for tag in tags_with_counts %}
     <li>
-      - <a href="{% url 'blog_by_tag' tag.name %}">{{ tag.name }} ({{ tag.count }})</a>
+      <a href="{% url 'blog_by_tag' tag.name %}">{{ tag.name }} ({{ tag.count }})</a>
     </li>
     {% endfor %}
   </ul>
 </div>
-
-<h1>Resume</h1>
 <br>
-<p>Click the link below to view my resume in a new tab.</p>
-<a href="{{ resume.upload.url }}" target="_blank">View My Resume</a>
+<h1>Check my resume out below:</h1>
+<br>
+<h2><a href="{{ resume.upload.url }}" target="_blank">My Resume</a></h2>
 </div>
 
 {% endblock %}

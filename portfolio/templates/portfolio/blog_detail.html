@@ -1,5 +1,18 @@
 {% extends 'portfolio/base.html' %}
 
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+<head>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
 {% block content %}
 <div class="grid-container">
   <div class="post-content">
@@ -32,7 +45,7 @@
   <div class="comments-section">
       <h2>Comments</h2>
       <br>
-      {% for comment in post.comments.all %}
+      {% for comment in comments %}
       <div class="comment">
           <p>{{ comment.body }}</p>
           <p>Posted by {{ comment.name }} on {{ comment.created_on }}</p>
@@ -42,21 +55,24 @@
       {% endfor %}
   </div>
 
-<div class="comment-form">
-    <h2>Leave a comment</h2>
-    <br>
-    <form method="post">
+  <!-- Display messages to the user -->
+  {% if messages %}
+      <div class="messages">
+          {% for message in messages %}
+              <div class="alert alert-info">{{ message }}</div>
+          {% endfor %}
+      </div>
+  {% endif %}
+
+  <div class="comment-form">
+      <h2>Leave a comment</h2>
+      <form method="post">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="name">Name:</label>
-            {{ comment_form.name }}
-        </div>
-        <div class="form-group">
-            <label for="body">Comment:</label>
-            {{ comment_form.body }}
-        </div>
-        <button type="submit">Submit</button>
-    </form>
-</div>
+        {{ comment_form.as_p}}
+        <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  </div>
+
 {% endblock %}
 

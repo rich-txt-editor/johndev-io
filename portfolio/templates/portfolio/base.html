@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>{% block title %}My Portfolio {% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <link rel="manifest" href="{% static 'manifest.json' %}">
 </head>
+
 <body>
     <header>
         <nav class='header'>
             <ul>
-                <li><a href="/">Projects</a></li>
+                <li><a href="/">Portfolio</a></li>
                 <li><a href="{% url 'blog_index' %}">Blog</a></li>
                 <li><a href="{% url 'about_me' %}">About Me</a></li>
                 <li><a href="{% url 'resume' %}">Resume/CV</a></li>
@@ -27,13 +28,15 @@
       {% block content %}
       {% endblock %}
     </div>
-
-    <footer class='footer'>
-        <p>John R. Molina's Portfolio &copy; 2024</p>
+    <footer class="footer">
+      <div class="text-center">
+        <p>© 2024 John R. Molina. All rights reserved.</p>
+        <p>Made with React, Django, and 💞</p>
+        <a href="https://twitter.com/rich_txt_editor" target="_blank">Twitter</a>
+        <a href="https://github.com/rich-txt_editor" target="_blank" >GitHub</a>
+        <a href="https://linkedin.com/in/jrmolin90" target="_blank">LinkedIn</a>
+      </div>
     </footer>
-
-
-
 </body>
 </html>
 

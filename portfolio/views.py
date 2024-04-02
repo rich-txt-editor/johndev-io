@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Skill, Post, Comment, Resume
 from .forms import CommentForm
@@ -9,6 +10,11 @@ from django.db.models import Count, Q
 from django_ratelimit.decorators import ratelimit
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from datetime import datetime
+from django.contrib import messages
+from django.views.decorators.http import require_POST
+from django.conf import settings
+
 
 
 # Create your views here.
@@ -81,8 +87,10 @@ def blog_detail(request, pk):
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
             new_comment.post = post
+            new_comment.approved = False
             new_comment.save()
-            return redirect('blog_detail', pk=post.pk)
+            messages.success(request, 'Thank you for submitting your comment! It is currently pending moderation.')
+            return HttpResponseRedirect('blog_detail', pk=post.pk)
     else:
         comment_form = CommentForm()
 
@@ -90,7 +98,8 @@ def blog_detail(request, pk):
         'post': post,
         'tags_with_counts': tags_with_counts,
         'comments': comments,
-        'comment_form': comment_form
+        'comment_form': comment_form,
+        'recaptcha_site_key': settings.RECAPTCHA_PUBLIC_KEY
     }
 
     return render(request, 'portfolio/blog_detail.html', context)
@@ -142,9 +151,3 @@ def resume(request):
 # View for the Contact Info page
 def contact(request):
     return render(request, 'portfolio/contact.html')
-
-
-
-@api_view(['GET'])
-def hello_world(request):
-    return Response({'message': 'Hello, world!'})

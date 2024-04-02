@@ -10,6 +10,7 @@ class CommentAdmin(admin.ModelAdmin):
 
     def approve_comments(self, request, queryset):
         queryset.update(approved=True)
+    approve_comments.short_description = "Mark selected comments as approved up on review"
 
 # Custom admin for Project model
 @admin.register(Project)

@@ -4,18 +4,20 @@
   "description": "This is a Django-based portfolio website designed to showcase software engineering projects, skills, and professional information. It features dynamic content management through Django admin, project display with images and details, a blog section for articles, and a tags feature for organizing content.",
   "main": "index.js",
   "scripts": {
+    "build-css": "postcss static/css/styles.css -o static/css/output.css",
+    "tailwind:build": "tailwindcss -i ./static/src/input.css -o ./static/css/tailwind.css --minify",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.38",
-    "postcss-cli": "^11.0.0",
-    "tailwindcss": "^3.4.1"
+    "postcss-cli": "^11.0.0"
   },
-  "scripts": {
-  "build-css": "postcss static/css/styles.css -o static/css/output.css"
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "cross-env": "^7.0.3",
+    "postcss": "^8.4.38",
+    "postcss-simple-vars": "^7.0.1"
   }
 }

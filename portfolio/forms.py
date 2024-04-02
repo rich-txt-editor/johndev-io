@@ -1,16 +1,19 @@
 from django import forms
 from django.core.validators import MaxLengthValidator
 from .models import Comment
+from django.utils.html import escape
+from django_recaptcha.fields import ReCaptchaField
+
 
 class CommentForm(forms.ModelForm):
+    captcha = ReCaptchaField()
     body = forms.CharField(widget=forms.Textarea, validators=[MaxLengthValidator(500)])
 
     class Meta:
         model = Comment
         fields = ['name', 'body']
 
-    # Example of custom clean method
     def clean_body(self):
         body = self.cleaned_data['body']
-        # Add any additional sanitization or validation here
-        return body
+        sanitized_body = escape(body)
+        return sanitized_body
