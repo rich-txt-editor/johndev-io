@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "taggit",
     "bootstrap5",
-    "django_recaptcha",
     "django_browser_reload",
     "tailwind",
     "theme"
@@ -169,9 +168,6 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
 ]
-
-RECAPTCHA_PUBLIC_KEY = env('RECAPTCHA_PUBLIC_KEY')
-RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_PRIVATE_KEY')
 
 TAILWIND_APP_NAME = 'theme'
 

@@ -2,11 +2,8 @@ from django import forms
 from django.core.validators import MaxLengthValidator
 from .models import Comment
 from django.utils.html import escape
-from django_recaptcha.fields import ReCaptchaField
-
 
 class CommentForm(forms.ModelForm):
-    captcha = ReCaptchaField()
     body = forms.CharField(widget=forms.Textarea, validators=[MaxLengthValidator(500)])
 
     class Meta:

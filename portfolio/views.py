@@ -16,7 +16,6 @@ from django.views.decorators.http import require_POST
 from django.conf import settings
 
 
-
 # Create your views here.
 class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Project.objects.all()
@@ -28,6 +27,8 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
         return context
 
 # View for the Projects page
+
+
 def project_index(request):
     projects = Project.objects.prefetch_related('images').all()
     context = {
@@ -35,15 +36,19 @@ def project_index(request):
     }
     return render(request, 'portfolio/project_index.html', context)
 
+
 def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk)
     return render(request, 'portfolio/project_detail.html', {'project': project})
 
 # View for the Skills page
+
+
 def skills_index(request):
     skills = Skill.objects.all()
-    tags_with_counts = Tag.objects.annotate(count=Count('taggit_taggeditem_items')).filter(count__gt=0).order_by('name')
-    
+    tags_with_counts = Tag.objects.annotate(count=Count(
+        'taggit_taggeditem_items')).filter(count__gt=0).order_by('name')
+
     context = {
         'skills': skills,
         'tags_with_counts': tags_with_counts,
@@ -51,6 +56,8 @@ def skills_index(request):
     return render(request, 'portfolio/skills_index.html', context)
 
 # View for the main Blog page, listing all blog posts
+
+
 def blog_index(request):
     posts = Post.objects.all().order_by('-created_on')
 
@@ -59,7 +66,8 @@ def blog_index(request):
         total_posts=Count('post', distinct=True),
         total_projects=Count('project', distinct=True)
     ).annotate(
-        total_count=Count('post', distinct=True) + Count('project', distinct=True)
+        total_count=Count('post', distinct=True) +
+        Count('project', distinct=True)
     )
 
     # Prepare a list of tags with their counts for the template
@@ -76,10 +84,13 @@ def blog_index(request):
     return render(request, 'portfolio/blog_index.html', context)
 
 # View for individual Blog post detail page
+
+
 @ratelimit(key='ip', rate='5/m', method='POST', block=True)
 def blog_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    tags_with_counts = Tag.objects.annotate(num_posts=Count('taggit_taggeditem_items')).filter(num_posts__gt=0).order_by('name')
+    tags_with_counts = Tag.objects.annotate(num_posts=Count(
+        'taggit_taggeditem_items')).filter(num_posts__gt=0).order_by('name')
     comments = post.comments.filter(approved=True)
 
     if request.method == 'POST':
@@ -89,7 +100,8 @@ def blog_detail(request, pk):
             new_comment.post = post
             new_comment.approved = False
             new_comment.save()
-            messages.success(request, 'Thank you for submitting your comment! It is currently pending moderation.')
+            messages.success(
+                request, 'Thank you for submitting your comment! It is currently pending moderation.')
             return HttpResponseRedirect('blog_detail', pk=post.pk)
     else:
         comment_form = CommentForm()
@@ -99,10 +111,10 @@ def blog_detail(request, pk):
         'tags_with_counts': tags_with_counts,
         'comments': comments,
         'comment_form': comment_form,
-        'recaptcha_site_key': settings.RECAPTCHA_PUBLIC_KEY
     }
 
     return render(request, 'portfolio/blog_detail.html', context)
+
 
 def blog_by_tag(request, tag_name):
     # Fetch posts and projects related to the tag
@@ -114,8 +126,10 @@ def blog_by_tag(request, tag_name):
 
     # Prepare tags with counts
     tags_with_counts = Tag.objects.annotate(
-        num_posts=Count('post', filter=Q(post__tags__name=tag_name), distinct=True),
-        num_projects=Count('project', filter=Q(project__tags__name=tag_name), distinct=True)
+        num_posts=Count('post', filter=Q(
+            post__tags__name=tag_name), distinct=True),
+        num_projects=Count('project', filter=Q(
+            project__tags__name=tag_name), distinct=True)
     ).filter(
         Q(post__tags__name=tag_name) | Q(project__tags__name=tag_name)
     ).distinct()
@@ -132,13 +146,18 @@ def blog_by_tag(request, tag_name):
     })
 
 # View for the About Me page
+
+
 def about_me(request):
     return render(request, 'portfolio/about_me.html')
 
 # View for the Resume page
+
+
 def resume(request):
     # Annotate each tag with the number of posts/projects associated with it
-    tags_with_counts = Tag.objects.annotate(count=Count('taggit_taggeditem_items')).filter(count__gt=0).order_by('name')
+    tags_with_counts = Tag.objects.annotate(count=Count(
+        'taggit_taggeditem_items')).filter(count__gt=0).order_by('name')
     resume = Resume.objects.first()
 
     context = {
