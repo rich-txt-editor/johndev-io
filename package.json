@@ -17,6 +17,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.19",
     "cross-env": "^7.0.3",
+    "daisyui": "^4.9.0",
     "postcss": "^8.4.38",
     "postcss-simple-vars": "^7.0.1"
   }

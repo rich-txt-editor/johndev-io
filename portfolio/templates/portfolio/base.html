@@ -1,27 +1,54 @@
+{% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Portfolio {% endblock %}</title>
+    <title>{% block title %} My Portfolio {% endblock %}</title>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		{% tailwind_css %}
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="manifest" href="{% static 'manifest.json' %}">
+    <script src="{% static 'base.js' %}"></script>
 </head>
 
 <body>
     <header>
-        <nav class='header'>
-            <ul>
-                <li><a href="/">Portfolio</a></li>
-                <li><a href="{% url 'blog_index' %}">Blog</a></li>
-                <li><a href="{% url 'about_me' %}">About Me</a></li>
-                <li><a href="{% url 'resume' %}">Resume/CV</a></li>
-                <li><a href="{% url 'skills_index' %}">Skills</a></li>
-                <li><a href="{% url 'contact' %}">Contact</a></li>
-            </ul>
+        <nav class="flex items-center justify-between flex-wrap dark:bg-gray-800 bg-gray-200 p-6">
+            <div class="flex items-center flex-shrink-0 text-white mr-6">
+                <span class="font-semibold text-2xl tracking-tight">🌌 Richie's website</span>
+            </div>
+            <div class="block lg:hidden">
+                <button id="menu-toggle" class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                </button>
+            </div>
+            <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden" id="menu">
+                <div class="text-md lg:flex-grow">
+                    <a href="/" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                        Portfolio
+                    </a>
+                    <a href="{% url 'blog_index' %}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                        Blog
+                    </a>
+                    <a href="{% url 'about_me' %}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                      About
+                    </a>
+                    <a href="{% url 'resume' %}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                      Resume
+                    </a>
+                    <a href="{% url 'skills_index' %}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                      Skills
+                    </a>
+                    <a href="{% url 'contact' %}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                      Contact
+                    </a>
+                </div>
+            </div>
         </nav>
     </header>
+
+
     <br>
     <br>
     <div class="content">

@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "bootstrap5",
     "django_recaptcha",
     "django_browser_reload",
+    "tailwind",
+    "theme"
 ]
 
 MIDDLEWARE = [
@@ -61,7 +63,8 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CSP_DEFAULT_SRC = ("'self'", "http://localhost:8000", )
+CSP_DEFAULT_SRC = ("'self'", "http://localhost:8000",)
+CSP_IMG_SRC = ("'self'", "http://localhost:8000", "blob:",)
 
 ROOT_URLCONF = "portfolio_site.urls"
 
@@ -139,7 +142,7 @@ STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend', 'static'),
-
+    os.path.join(BASE_DIR, 'static'),
 ] # for any global static files
 
 # Default primary key field type
@@ -170,7 +173,7 @@ CORS_ORIGIN_WHITELIST = [
 RECAPTCHA_PUBLIC_KEY = env('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_PRIVATE_KEY')
 
-TAILWIND_APP_NAME = 'portfolio_theme'
+TAILWIND_APP_NAME = 'theme'
 
 INTERNAL_IPS = [
     "127.0.0.1",
