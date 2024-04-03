@@ -6,20 +6,20 @@
   <div class="text-center post-content flex-grow pr-8 pt-5">
   <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-6">Please check my resume out below:</h1>
   <div class="space-y-4">
-    <div class="text-5xl pb-4 mb-4 dark:text-blue-400  underline dark:hover:text-white">
+    <div class="text-5xl pb-4 mb-4 text-celestialblue-500 hover:text-celestialblue-700">
       <br>
       <h2><a href="{{ resume.upload.url }}" target="_blank">My Resume</a></h2>
     </div>
   </div>
   </div>
   <!-- Tags container as a separate, thinner box on the right -->
-  <div class="w-full md:w-1/6 mt-8 md:mt-0">
+  <div class="w-auto lg:w-1/6 mt-8 md:mt-8 lg:mt-">
     <h2 class="text-center text-2xl font-semibold text-gray-800 dark:text-white mb-4">Tags</h2>
     <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow">
-      <ul class="list-none pl-9 space-y-2">
+      <ul class="list-none text-center space-y-2">
         {% for tag in tags_with_counts %}
         <li>
-          <a class="text-md text-blue-500 hover:text-blue-600 dark:hover:text-blue-400" href="{% url 'blog_by_tag' tag.name %}">
+          <a class="text-lg text-celestialblue-500 hover:text-celestialblue-700" href="{% url 'blog_by_tag' tag.name %}">
             {{ tag.name }} ({{ tag.count }})
           </a>
         </li>
