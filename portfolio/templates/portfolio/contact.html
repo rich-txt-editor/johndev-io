@@ -1,17 +1,22 @@
 {% extends 'portfolio/base.html' %}
 
 {% block content %}
-<h1>Contact Me</h1>
-<br>
-<p>If you have any questions or would like to work on something together, feel free to contact me through the following channels:</p>
-<br>
-<p>
-  <ul>
-      <li><a href="mailto:johndevio@protonmail.com" class="project-link">&nbsp;E-mail</a></li>
-      <li><a href="https://www.linkedin.com/in/jrmolin90/" target="_blank" class="project-link">&nbsp;LinkedIn</a></li>
-      <li><a href="https://github.com/jrmol" target="_blank" class="project-link">&nbsp;GitHub</a></li>
-      <!-- Add other social networks or contact methods as needed -->
-  </ul>
-</p>
-{% endblock %}
 
+<div class="container mx-auto px-4 py-8 md:flex">
+
+  <div class="post-content flex-grow pr-8">
+    <h1 class="text-5xl font-bold text-gray-800 dark:text-white mb-6">Contact Me</h1>
+    <div class="space-y-10">
+      <h3>If you have any questions or would like to work on something together, feel free to contact me through the following channels:</h3>
+      <div class="text-3xl dark:text-blue-400 underline">
+        <ul>
+          <li class="pb-4"><a href="mailto:johndevio@protonmail.com" class="dark:hover:text-white">E-mail</a></li>
+          <li class="pb-4"><a href="https://www.linkedin.com/in/jrmolin90/" target="_blank" class="dark:hover:text-white">LinkedIn</a></li>
+          <li class="pb-3"><a href="https://github.com/jrmol" target="_blank" class="dark:hover:text-white">GitHub</a></li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

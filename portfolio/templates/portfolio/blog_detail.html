@@ -1,7 +1,7 @@
 {% extends 'portfolio/base.html' %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8 md:flex">
+<div class="container mx-auto px-4 py-8 flex flex-col md:flex-row">
 
   <!-- Main Content and Comments Section with flex-grow to take available space -->
   <div class="flex-grow md:w-2/3 lg:w-3/4 pr-8">
@@ -9,7 +9,7 @@
     <!-- Blog Post Content -->
     <div class="post-content mb-8">
       <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-6">{{ post.title }}</h1>
-      <p class="text-lg text-gray-700 mb-4">{{ post.body }}</p>
+      <p class="text-lg text-gray-700 dark:text-white mb-4">{{ post.body }}</p>
 
       <!-- Display Tags associated with the post -->
       <div class="post-tags mb-8">
@@ -24,13 +24,22 @@
         </div>
       </div>
     </div>
-
+    {% if messages %}
+    <div role="alert" class="alert alert-success">
+      {% for message in messages %}
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <p {% if message.tags %} class="{{ message.tags }} " {% endif %}>{{ message }}</p>
+        {% endfor %}
+    </div>
+    <br>
+    {% endif %}
     <!-- Comments Section -->
     <div class="comments-section mb-8">
+      
       <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Comments</h2>
       {% for comment in comments %}
       <div class="comment mb-4">
-        <p class="text-lg text-gray-700 mb-2">{{ comment.body }}</p>
+        <p class="text-lg dark:text-white mb-2">{{ comment.body }}</p>
         <p class="text-sm text-gray-600 dark:text-gray-400">Posted by {{ comment.name }} on {{ comment.created_on }}</p>
       </div>
       {% empty %}
@@ -40,8 +49,9 @@
 
     <!-- Comment Form -->
     <div class="comment-form mb-8">
-      <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Leave a comment</h2>
-      <form method="post" class="space-y-4">
+      <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Leave your name and a comment</h2>
+
+      <form method="post" class="space-y-7">
         {% csrf_token %}
         {{ comment_form.as_p }}
         <button type="submit"
@@ -50,14 +60,17 @@
         </button>
       </form>
     </div>
+
+
   </div>
 
-  <aside class="w-full md:w-1/3 lg:w-1/6 mt-8 md:mt-0">
-    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Tags</h2>
+  <!-- Tags box to the right -->
+  <div class="w-full md:w-1/4 lg:w-1/6 mt-8 md:mt-0">
+    <h2 class="text-center text-2xl font-semibold text-gray-800 dark:text-white mb-4">Tags</h2>
     <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow">
-      <ul class="list-none pl-5 space-y-2">
+      <ul class="list-none pl-9 space-y-2">
         {% for tag in tags_with_counts %}
-        <li class="mb-2">
+        <li>
           <a class="text-md text-blue-500 hover:text-blue-600 dark:hover:text-blue-400"
             href="{% url 'blog_by_tag' tag.name %}">
             {{ tag.name }} ({{ tag.num_posts }})
@@ -66,6 +79,7 @@
         {% endfor %}
       </ul>
     </div>
-  </aside>
+  </div>
+</div>
 
-  {% endblock %}
+{% endblock %}

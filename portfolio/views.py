@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Project, Skill, Post, Comment, Resume
+from .models import Project, Skill, Post, Resume
 from .forms import CommentForm
 from django.utils import timezone
 from rest_framework import viewsets
@@ -14,9 +14,11 @@ from datetime import datetime
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 from django.conf import settings
-
+from django.urls import reverse
 
 # Create your views here.
+
+
 class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
@@ -92,6 +94,7 @@ def blog_detail(request, pk):
     tags_with_counts = Tag.objects.annotate(num_posts=Count(
         'taggit_taggeditem_items')).filter(num_posts__gt=0).order_by('name')
     comments = post.comments.filter(approved=True)
+    comment_form = CommentForm()
 
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
@@ -102,7 +105,7 @@ def blog_detail(request, pk):
             new_comment.save()
             messages.success(
                 request, 'Thank you for submitting your comment! It is currently pending moderation.')
-            return HttpResponseRedirect('blog_detail', pk=post.pk)
+            return HttpResponseRedirect(post.get_absolute_url())
     else:
         comment_form = CommentForm()
 
