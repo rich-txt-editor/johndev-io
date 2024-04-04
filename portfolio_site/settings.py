@@ -58,6 +58,7 @@ MIDDLEWARE = [
     "csp.middleware.CSPMiddleware",
     "django_ratelimit.middleware.RatelimitMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
