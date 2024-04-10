@@ -22,7 +22,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'johndev.io']
 
 
 # Application definition
@@ -141,8 +141,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend', 'static'),
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'frontend', 'static'),
 ] # for any global static files
 
 # Default primary key field type

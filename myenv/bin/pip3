@@ -1,4 +1,4 @@
-#!/Users/what/Sites/portfolio_site/portfolio_venv/bin/python
+#!/Users/what/Sites/johndev-io/myenv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
