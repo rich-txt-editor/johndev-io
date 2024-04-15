@@ -22,7 +22,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'johndev.io']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "taggit",
-    "bootstrap5",
-    "django_browser_reload",
     "tailwind",
     "theme"
 ]
@@ -57,8 +55,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "csp.middleware.CSPMiddleware",
     "django_ratelimit.middleware.RatelimitMiddleware",
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
-
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
