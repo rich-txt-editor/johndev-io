@@ -11,7 +11,7 @@ import json
 import os
 
 def manifest(request):
-    manifest_path = os.path.join(settings.BASE_DIR, 'frontend', 'static', 'manifest.json')
+    manifest_path = os.path.join(settings.BASE_DIR, 'static', 'manifest.json')
     with open(manifest_path, 'r') as file:
         data = json.load(file)
     return HttpResponse(json.dumps(data), content_type='application/json')
@@ -21,7 +21,7 @@ router.register(r'projects', ProjectViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include('frontend.urls')),
+    path("", views.index, name="index"),
     path("blog/", views.blog_index, name="blog_index"),
     path("blog/<int:pk>/", views.blog_detail, name="blog_detail"),
     path("about/", views.about_me, name="about_me"),

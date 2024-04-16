@@ -2,38 +2,26 @@
 
 {% block content %}
 
-{% load static %} <!-- Load static if you need to reference static files -->
+{% load static %}
 
-<div class="container mt-5"> <!-- Bootstrap container class for styling -->
-  {% for project in projects %}
-    <div class="project mb-3">
-      <h2 class="text-teal-200">{{ project.title }}</h2>
-      <p>{{ project.description }}</p>
-      <div class="row">
-        <!-- Display project images -->
-        {% for image in project.images.all %}
-          <div class="col-sm-4 mb-2"> <!-- Bootstrap grid layout for images -->
-            <img src="{{ image.image.url }}" alt="{{ image.caption }}" class="img-fluid">
-            <!-- 'img-fluid' class makes the image responsive -->
-          </div>
-        {% endfor %}
-      </div>
-      <!-- Optionally, include project links if present -->
-      {% if project.link %}
-        <a href="{{ project.link }}" target="_blank" class="hover:text-blue-400">Live Version</a>
-      {% endif %}
-      {% if project.repo_link %}
+<div>
+    {% for project in projects %}
+    <div>
+        <h2>{{ project.title }}</h2>
+        <p>{{ project.description }}</p>
+        {% if project.repo_link %}
         <a href="{{ project.repo_link }}" target="_blank" class="hover:text-blue-400">Repository</a>
-      {% endif %}
+        {% endif %}
+        <div>
+            {% for image in project.images.all %}
+            <div>
+                <img src="{{ image.image.url }}" alt="{{ image.caption }}" class="img-fluid">
+            </div>
+            {% endfor %}
+        </div>
     </div>
-  {% empty %}
-    <p>No projects found.</p>
-  {% endfor %}
+    {% empty %}
+    <h3>what...? 😢</h3>
+    {% endfor %}
 </div>
 {% endblock %}
-
-
-
-
-
-

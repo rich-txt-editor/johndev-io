@@ -30,6 +30,8 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
 
 # View for the Projects page
 
+def index(request):
+    return render(request, 'portfolio/index.html')
 
 def project_index(request):
     projects = Project.objects.prefetch_related('images').all()
