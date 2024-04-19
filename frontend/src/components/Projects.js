@@ -8,18 +8,18 @@ const Projects = () => {
 	const [projects, setProjects] = useState([]);
 	const [selectedProject, setSelectedProject] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isLoading, setIsLoading] = useState(true); // Loading state
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchProjects = async () => {
-			setIsLoading(true); // Start loading before the request
+			setIsLoading(true);
 			try {
 				const response = await axios.get("http://localhost:8000/api/projects/");
 				setProjects(response.data);
 			} catch (error) {
 				console.error("There was an error fetching the projects:", error);
 			} finally {
-				setIsLoading(false); // Stop loading after the request is completed
+				setIsLoading(false);
 			}
 		};
 

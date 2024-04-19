@@ -1,3 +1,5 @@
+import json
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Skill, Post, Resume
@@ -15,6 +17,9 @@ from django.contrib import messages
 from django.views.decorators.http import require_POST
 from django.conf import settings
 from django.urls import reverse
+from django.utils.crypto import get_random_string
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -31,7 +36,10 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
 # View for the Projects page
 
 def index(request):
-    return render(request, 'portfolio/index.html')
+    nonce = get_random_string(length=32)  # Generate a random nonce
+    response = render(request, 'portfolio/index.html', {'csp_nonce': nonce})  # Render the response with the nonce
+    response['Content-Security-Policy'] = f"script-src 'self' 'nonce-{nonce}';"  # Set the CSP header
+    return response  # Return the response object
 
 def project_index(request):
     projects = Project.objects.prefetch_related('images').all()
@@ -175,3 +183,13 @@ def resume(request):
 # View for the Contact Info page
 def contact(request):
     return render(request, 'portfolio/contact.html')
+
+
+@csrf_exempt  # Disable CSRF token for this view as reports won't have it
+@require_POST  # Accept only POST requests
+def csp_violation_report(request):
+    report = json.loads(request.body)
+    # Log the report to the console or a file
+    print("CSP Violation:", report)
+    # You can also use logging, send to monitoring service, store in DB, etc.
+    return JsonResponse({'status': 'ok'})

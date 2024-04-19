@@ -58,8 +58,13 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+CSP_REPORT_URI = '/csp-violation-report/'
+
 CSP_DEFAULT_SRC = ("'self'", "http://localhost:8000",)
 CSP_IMG_SRC = ("'self'", "http://localhost:8000", "blob:",)
+CSP_SCRIPT_SRC = ("'self'", "http://localhost:8000",)
+CSP_INCLUDE_NONCE_IN = ('script-src', 'style-src')
+CSP_REPORT_URI = (CSP_REPORT_URI,)
 
 ROOT_URLCONF = "portfolio_site.urls"
 

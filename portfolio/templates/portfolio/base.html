@@ -10,7 +10,6 @@
   {% tailwind_css %}
   {% load static %}
   <link rel="manifest" href="{% static 'manifest.json' %}">
-  <script src="{% static 'base.js' %}"></script>
   <link rel="stylesheet" href="{% static 'styles.css' %}">
   <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
 
@@ -91,6 +90,8 @@
       </div>
     </div>
   </footer>
+  <script src="{% static 'base.js' %}"></script>
+  <script nonce="{{ csp_nonce }}" src="{% static 'bundle.js' %}"></script>
 </body>
 
 </html>
