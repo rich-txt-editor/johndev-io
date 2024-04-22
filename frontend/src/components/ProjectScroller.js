@@ -73,15 +73,18 @@ export default function ProjectScroller() {
 	};
 
 	return (
-		<div className="aspect-auto slider-container text-center p-60">
+		<div className="aspect-auto slider-container text-center p-60 p-auto">
 			<Slider {...settings}>
 				{Array.from(projects.values()).map((project, index) => (
 					<div key={project.id} className="p-4">
 						<div className="max-w-xs dark:bg-white border dark:border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
-							<h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-								{project.title}
-							</h5>
-							<div className="flex justify-center items-center p-4">
+							<div className="p-16 m-auto">
+								<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+									{project.title}
+								</h5>
+							</div>
+
+							<div className="flex justify-center items-center p-4 m-4">
 								<a href={`/project/${project.id}/`}>
 									<img
 										className="rounded-t-lg"
@@ -93,7 +96,7 @@ export default function ProjectScroller() {
 								</a>
 							</div>
 							<div className="flex flex-wrap justify-center gap-2 mb-3">
-								<p className="mb-3 font-xl dark:text-gray-700">
+								<p className="mb-3 font-1xl dark:text-gray-700">
 									{project.description}
 								</p>
 							</div>
@@ -102,20 +105,19 @@ export default function ProjectScroller() {
 									Role: {project.contributionRole}
 								</p>
 							</div>
-							<div className="flex flex-wrap justify-center gap-2 mb-3 items-center">
-								<p className="text-lg text-gray-600 dark:text-gray-400 mr-2">
-									Tags:
+							<div className="flex flex-wrap justify-center gap-2 mb-3">
+								<p className="bg-blue-200 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 mr-2">
+									Tags:{" "}
 								</p>
 								{project.tags.map((tag) => (
 									<span
 										key={tag}
-										className="bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800"
+										className="bg-blue-200 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800"
 									>
 										{tag}
 									</span>
 								))}
 							</div>
-
 							<div className="flex flex-wrap justify-center gap-2 my-3">
 								<a
 									href={project.repoLink || "#"}
