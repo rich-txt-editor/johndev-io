@@ -1,20 +1,15 @@
-import React from 'react';
-import './App.css';
-import Projects from './components/Projects';
-
+import React from "react";
+import "./App.css";
+import './index.css';
+// import CenterMode from "./components/CenterMode";
+import AutoPlayMethods from "./components/AutoPlayMethods";
 
 function App() {
-  // eslint-disable-next-line
-  const [isNavbarExpanded, setIsNavbarExpanded] = React.useState(false);
-
-  return (
-    <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">
-        <Projects />
-      <main className="flex-grow transition-margin duration-300 ease-in-out mb-20">
-
-      </main>
-    </div>
-  );
+	return (
+		<main className="app-container">
+			<AutoPlayMethods />
+		</main>
+	);
 }
 
 export default App;

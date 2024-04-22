@@ -34,8 +34,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: path.resolve(__dirname, 'templates/index.html'), // Output to Django's templates directory
-      template: 'src/index.html', // Path to your HTML template
+      filename: path.resolve(__dirname, 'templates/frontend/index.html'), // Output to Django's templates directory
+      template: 'templates/frontend/index.html', // Path to your HTML template
       inject: 'body', // Injects scripts at the end of the body tag
       scriptLoading: 'defer', // Defer loading of scripts
       publicPath: '/static/js/',
