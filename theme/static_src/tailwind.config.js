@@ -34,7 +34,9 @@ module.exports = {
         // '!../../**/node_modules',
         /* JS 2: Process all JavaScript files in the project. */
         // '../../frontend/src/**/*.js',
-        "./node_modules/flowbite/**/*.js"
+        "./node_modules/flowbite/**/*.js",
+        './node_modules/flowbite-react/lib/esm/**/*.js'
+
 
 
         /**

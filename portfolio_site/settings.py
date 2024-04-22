@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "taggit",
     "tailwind",
-    "theme"
+    "theme",
+    "compressor",
 ]
 
 MIDDLEWARE = [
@@ -143,6 +144,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'django_static'),
     os.path.join(BASE_DIR, 'frontend', 'static'),
+    os.path.join(BASE_DIR, 'frontend', 'static', 'css'),
     os.path.join(BASE_DIR, 'frontend', 'static', 'js'),
 ]
 
