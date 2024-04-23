@@ -33,11 +33,9 @@ class Project {
 		this.link = link;
 	}
 }
-
 export default function ProjectScroller() {
 	const [projects, setProjects] = useState(new Map());
 
-	// Fetch projects data and store it in state
 	useEffect(() => {
 		fetch("http://localhost:8000/api/projects/")
 			.then((response) => response.json())
@@ -67,13 +65,15 @@ export default function ProjectScroller() {
 		speed: 1000,
 		fade: true,
 		centerMode: true,
-		className: "center",
 		centerPadding: "60px",
 		adaptiveHeight: true,
 	};
 
 	return (
-		<div className="aspect-auto slider-container text-center p-60 p-auto">
+		<div
+			className="aspect-auto slider-container text-center px-4 bg-orange-200"
+			style={{ maxWidth: "800px", margin: "0 auto" }}
+		>
 			<Slider {...settings}>
 				{Array.from(projects.values()).map((project, index) => (
 					<div key={project.id} className="p-4">

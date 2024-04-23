@@ -51,7 +51,14 @@ def project_index(request):
 
 def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk)
-    return render(request, 'portfolio/project_detail.html', {'project': project})
+    nonce = get_random_string(length=32)  # Generate a random nonce
+    response = render(request, 'portfolio/project_detail.html', {
+        'project': project,
+        'csp_nonce': nonce
+    })  # Pass the nonce to the template
+    response['Content-Security-Policy'] = f"script-src 'self' 'nonce-{nonce}'; style-src 'self' 'nonce-{nonce}';"  # Set the CSP header
+    return response
+
 
 # View for the Skills page
 
@@ -69,8 +76,9 @@ def skills_index(request):
 
 # View for the main Blog page, listing all blog posts
 
-
 def blog_index(request):
+    nonce = get_random_string(length=32)  # Generate a random nonce
+    
     posts = Post.objects.all().order_by('-created_on')
 
     # Prepare tags with aggregated counts of posts and projects
@@ -91,20 +99,24 @@ def blog_index(request):
     context = {
         'posts': posts,
         'tags_with_counts': tags_with_counts_list,
+        'csp_nonce': nonce  # Include the nonce in the context
     }
 
-    return render(request, 'portfolio/blog_index.html', context)
+    response = render(request, 'portfolio/blog_index.html', context)
+    response['Content-Security-Policy'] = f"script-src 'self' 'nonce-{nonce}'; style-src 'self' 'nonce-{nonce}';"  # Set the CSP header with the nonce
+    return response
+
 
 # View for individual Blog post detail page
 
 
 @ratelimit(key='ip', rate='5/m', method='POST', block=True)
 def blog_detail(request, pk):
+    nonce = get_random_string(length=32)
     post = get_object_or_404(Post, pk=pk)
-    tags_with_counts = Tag.objects.annotate(num_posts=Count(
-        'taggit_taggeditem_items')).filter(num_posts__gt=0).order_by('name')
     comments = post.comments.filter(approved=True)
     comment_form = CommentForm()
+    tags_with_counts = Tag.objects.annotate(num_posts=Count('taggit_taggeditem_items')).filter(num_posts__gt=0).order_by('name')
 
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
@@ -113,23 +125,26 @@ def blog_detail(request, pk):
             new_comment.post = post
             new_comment.approved = False
             new_comment.save()
-            messages.success(
-                request, 'Thank you for submitting your comment! It is currently pending moderation.')
+            messages.success(request, 'Your comment is awaiting moderation.')
             return HttpResponseRedirect(post.get_absolute_url())
     else:
         comment_form = CommentForm()
-
     context = {
         'post': post,
-        'tags_with_counts': tags_with_counts,
         'comments': comments,
+        'tags_with_counts': tags_with_counts,
         'comment_form': comment_form,
+        'csp_nonce': nonce
     }
-
-    return render(request, 'portfolio/blog_detail.html', context)
+    response = render(request, 'portfolio/blog_detail.html', context)
+    response['Content-Security-Policy'] = f"default-src 'self'; script-src 'self' 'nonce-{nonce}'; style-src 'self' 'nonce-{nonce}'; img-src 'self' data:; report-uri /csp-violation-report/"
+    return response
 
 
 def blog_by_tag(request, tag_name):
+    # Generate a random nonce for CSP
+    nonce = get_random_string(length=32)
+
     # Fetch posts and projects related to the tag
     posts = Post.objects.filter(tags__name__in=[tag_name])
     projects = Project.objects.filter(tags__name__in=[tag_name])
@@ -139,10 +154,8 @@ def blog_by_tag(request, tag_name):
 
     # Prepare tags with counts
     tags_with_counts = Tag.objects.annotate(
-        num_posts=Count('post', filter=Q(
-            post__tags__name=tag_name), distinct=True),
-        num_projects=Count('project', filter=Q(
-            project__tags__name=tag_name), distinct=True)
+        num_posts=Count('post', filter=Q(post__tags__name=tag_name), distinct=True),
+        num_projects=Count('project', filter=Q(project__tags__name=tag_name), distinct=True)
     ).filter(
         Q(post__tags__name=tag_name) | Q(project__tags__name=tag_name)
     ).distinct()
@@ -153,10 +166,16 @@ def blog_by_tag(request, tag_name):
         'count': tag.num_posts + tag.num_projects
     } for tag in tags_with_counts]
 
-    return render(request, 'portfolio/tagged_content.html', {
+    # Set the CSP header with the nonce for inline styles and scripts
+    response = render(request, 'portfolio/tagged_content.html', {
         'display_items': display_items,
         'tags_with_counts': tags_with_aggregated_counts,
+        'csp_nonce': nonce
     })
+    csp_policy = f"default-src 'self'; img-src 'self' data:; style-src 'self' 'nonce-{nonce}'; script-src 'self' 'nonce-{nonce}' http://localhost:8000; report-uri /csp-violation-report/"
+    response['Content-Security-Policy'] = csp_policy
+
+    return response
 
 # View for the About Me page
 

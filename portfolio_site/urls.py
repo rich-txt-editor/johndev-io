@@ -25,7 +25,6 @@ router.register(r'projects', ProjectViewSet)
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.index, name="index"),
-    # path("", include('frontend.urls')),
     path("blog/", views.blog_index, name="blog_index"),
     path("blog/<int:pk>/", views.blog_detail, name="blog_detail"),
     path("about/", views.about_me, name="about_me"),
@@ -36,8 +35,7 @@ urlpatterns = [
     path("tag/<str:tag_name>/", views.blog_by_tag, name='blog_by_tag'),
     path('project/<int:pk>/', views.project_detail, name='project_detail'),
     path('manifest.json', manifest, name='manifest'),
-    path('csp-violation-report/', views.csp_violation_report,
-         name='csp_violation_report'),
+    path('csp-violation-report/', views.csp_violation_report, name='csp_violation_report'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

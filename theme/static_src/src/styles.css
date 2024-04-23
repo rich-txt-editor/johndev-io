@@ -1,3 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+<style nonce="{{ csp_nonce }}">
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+</style>
