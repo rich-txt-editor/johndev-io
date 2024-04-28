@@ -8,11 +8,12 @@
 }
 
 /* Ensure menu is initially hidden on smaller screens */
-@media (max-width: 640px) {
+@media (max-width: 1023px) {
 	#menu {
 		opacity: 0;
 		height: 0;
 		overflow: hidden;
+		text-align: center;
 	}
 }
 
