@@ -20,3 +20,18 @@
 #hoverimg:hover {
 	transition: opacity 500ms ease-out, height 500ms ease-out;
 }
+/* Default light mode styles */
+.captcha-input {
+	background-color: #ffffff; /* Light background */
+	color: #000000; /* Dark text */
+	border: 1px solid #cccccc; /* Light border */
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+	.captcha-input {
+		background-color: #333333; /* Dark background */
+		color: #ffffff; /* Light text */
+		border: 1px solid #444444; /* Darker border */
+	}
+}
